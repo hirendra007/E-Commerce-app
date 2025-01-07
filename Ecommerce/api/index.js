@@ -1,9 +1,10 @@
+require("dotenv").config({ path: ".env" });
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const crypto = require("crypto");
 const nodeMailer = require("nodemailer");
-
+const MONGO_URI = process.env.MONGO_URI;
 const app = express();
 const port = 8000;
 const cors = require("cors");
@@ -11,7 +12,9 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json);
 const jwt = require("jsonwebtoken");
-mongoose.connect("mongodb+srv://hirendrabalaji3:xGdPV8UxBIvEFbWQ@cluster0.6lkrz.mongodb.net/ecommerce_app", {
+const path = require("path");
+console.log("MONGO_URI:", MONGO_URI);
+mongoose.connect(MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
